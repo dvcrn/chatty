@@ -1,4 +1,5 @@
 ## Random Chat Facebook Application  
+- Please note: This app was intended to be a POC. It is very likely outdated!
 
 ### Requirements
 
