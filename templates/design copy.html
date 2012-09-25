@@ -1,0 +1,213 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Page</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+	<script src="{{ STATIC_PREFIX }}js/jquery.scrollTo-1.4.2-min.js" type="text/javascript"></script>
+	<script src="{{ STATIC_PREFIX }}js/jquery.serialScroll-1.2.2-min.js" type="text/javascript"></script>
+	<script src="http://nightbug.personalitycores.com:8000/socket.io/socket.io.js"></script>
+	<link rel="stylesheet" href="{{ STATIC_PREFIX }}css/style_new.css">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var chatinput = $('#chatinput');
+			var chatbutton = $('#sendbutton');
+			var revealbutton = $('#revealbutton');
+			var chatcontent = $('#chatcontent');
+			var socket = io.connect('http://nightbug.personalitycores.com:8000');
+			var statusfield = $("#status-status span");
+			var connected = false;
+			var shared = false;
+			var dropdown_bar = $('#dropdown-bar');
+			var dropdown_content = $('#dropdown-content');
+			var userid = {{ user_fbid }};
+			//var userid = Math.floor(Math.random() * 10000000000000);
+			// ------
+			var pbox_avatar = $('#partnerbox #avatar');
+			var pbox_name = $('#partnerbox #name span');
+			var pbox_gender = $('#partnerbox #gender span');
+			var pbox_relationship = $('#partnerbox #relationship span');
+			var pbox_interested_in = $('#partnerbox #interested_in span');
+			var pbox_birthday = $('#partnerbox #birthday span');
+
+			var partner_name = "Stranger";
+			var partner_id = 0;
+
+			showmessage = function(msg, sender) {
+				if (sender == "system") {
+					chatcontent.append("<div class='message-system'>"+msg+"</div>");	
+				}
+				
+				if (sender == "you") {
+					chatcontent.append("<div class='message-you'><img class='message-avatar' src='http://graph.facebook.com/"+userid+"/picture/' /><p class='message-sender'>You</p><p class='message-content'>"+msg+"</p></div>");
+				}
+
+				if (sender == "partner") {
+					if (partner_id == 0) {
+						partner_avatar = '{{ STATIC_PREFIX }}img/avatar-default-small.gif';
+					}
+					else {
+						partner_avatar = 'http://graph.facebook.com/' + partner_id + '/picture/';	
+					}
+
+					chatcontent.append("<div class='message-partner'><img class='message-avatar' src='"+partner_avatar+"' /><p class='message-sender'>"+partner_name+"</p><p class='message-content'>"+msg+"</p></div>");
+				}
+			}
+
+			set_status = function(text) {
+				statusfield.html(text);
+			}
+
+			request_reveal = function() {
+				socket.emit('e_reveal_request');
+			}
+
+			chatinput.keydown(function(event) {
+				if(event.keyCode == 13){
+					chatbutton.click();
+				}
+			});
+
+			revealbutton.click(function() {
+				request_reveal();
+			});
+
+			dropdown_bar.click(function() {
+				dropdown_content.slideToggle('slide');
+			});
+
+			chatbutton.click(function() {				
+				if (connected) {
+					var val = chatinput.val();
+
+					if (val.length > 0) {				
+						
+						chatinput.val(null);
+						showmessage(val, "you");
+						chatcontent.scrollTo("1000000000000", 500);
+						socket.emit('e_message', { 'msg': val });	
+					}	
+				}
+			});
+
+			socket.on('e_connection_success', function(data) {
+				showmessage("Connection Sucessful. Say Hi! :)", "system");
+				set_status("Connected");
+				connected = true;
+			});
+
+			socket.on('e_connection_disconnect', function(data) {
+				showmessage("Your partner disconnected. Sorry!", "system");
+				set_status("Disconnected");
+				connected = false;
+				chatcontent.scrollTo("1000000000000", 500);
+			});
+
+			socket.on('e_connection_error', function(data) {
+				showmessage(data.msg, "system");
+				set_status("Error");
+				connected = false;
+			});
+
+			socket.on('e_status', function(data) {
+				set_status(data.text);
+			});
+
+			socket.on('e_servermessage', function(data) {
+				showmessage(data.msg, "system");
+				chatcontent.scrollTo("1000000000000", 500);
+			});
+
+			socket.on('e_partnermessage', function(data) {
+				showmessage(data.msg, "partner");
+				chatcontent.scrollTo("1000000000000", 500);
+			});
+
+			socket.on('e_reveal_success', function(data) {
+				showmessage("Sharing complete :) Check out the Dropdown box above!", "system")
+				dropdown_bar.slideDown('slow');
+
+				//dropdown_content.html(data.partner_data);
+				var parsed_data = $.parseJSON(data.partner_data);
+				console.info(parsed_data.interested_in);
+
+
+				pbox_gender.html(parsed_data.gender);
+				pbox_name.html(parsed_data.first_name + " " + parsed_data.last_name);
+				pbox_relationship.html(parsed_data.relationship_status);
+				pbox_birthday.html(parsed_data.birthday);
+				pbox_avatar.attr('src', "http://graph.facebook.com/"+parsed_data.id+"/picture?type=large&cache=" + Math.floor(Math.random() * 10000));
+				pbox_interested_in.html(parsed_data.interested_in.join(', '));
+
+				partner_name = parsed_data.first_name;
+				partner_id = parsed_data.id;
+
+				dropdown_content.slideDown('slow');
+				shared = true;	
+			});
+
+			socket.on('e_reveal_failure', function(data) {
+				showmessage("Your Partner declined your request. Sorry!", "system")
+			});
+
+
+			socket.on('e_reveal_request', function(data) {
+
+				if (shared == false) {
+					$('#reveal_success_button').removeAttr('id');
+					$('#reveal_decline_button').removeAttr('id');
+
+					showmessage("Your Partner is Requesting your Data. Click <a id='reveal_success_button' href='#'>here</a> to commit or <a id='reveal_decline_button' href='#'>decline</a> the request..", "system");				
+					$('#reveal_success_button').click(function() {
+						socket.emit('e_reveal_success');
+					});
+
+					$('#reveal_decline_button').click(function() {
+						socket.emit('e_reveal_failure');
+					});
+				}
+
+			});
+
+			socket.emit("e_connect", { 'id': userid }); 
+
+		});
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="chatbox">
+			<div id="chatstatus">
+				<p id="status-status">
+					Status: <span>Disconnected</span>
+				</p>
+			</div>
+            <div id="dropdown">
+                    <div id="dropdown-content">
+						<h1>Partner Infos:</h1>
+						<div id="partnerbox">
+							<img id="avatar" src="{{ STATIC_PREFIX }}img/avatar-default-large.jpg" />
+							<p class="partnerinfo" id="name">Name: <span>Not Set</span></p>
+							<p class="partnerinfo" id="gender">Gender: <span>Not Set</span></p>
+							<p class="partnerinfo" id="relationship">Relationship: <span>Not Set</span></p>
+							<p class="partnerinfo" id="interested_in">Intersted In: <span>Not Set</span></p>
+							<p class="partnerinfo" id="birthday">Birthday: <span>Not Set</span></p>
+						</div>
+                    </div>
+                    <div id="dropdown-bar">
+                            Click me!
+                    </div>
+            </div>
+			<div id="chatcontent">
+			
+			</div>
+			<div id="chatfooter">
+				<textarea id="chatinput"></textarea>
+				<input type="button" value="Send" id="sendbutton" />
+				<input type="button" value="Reveal" id="revealbutton" />
+			</div>
+		</div>
+	</div>
+</body>
+</html>

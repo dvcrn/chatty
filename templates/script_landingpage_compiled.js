@@ -1,0 +1,1 @@
+$(document).ready(function(){var a=io.connect("{{ socket_uri }}");a.on("e_socket_count",function(a){$("#status span").html(a.count)});window.setInterval(function(){a.emit("e_socket_count")},3E4);a.emit("e_socket_count")});

@@ -1,0 +1,54 @@
+body
+{
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size: small;
+}
+
+#chatbox
+{
+	width: 500px;
+	height: 500px;
+	border: solid 1px;
+	overflow-y: scroll;
+}
+.msg
+{
+	margin: 10px;
+	clear: both;
+	min-height: 50px;
+	width: 480px;
+	background: lightblue;
+}
+
+.msg img
+{
+	float: left;	
+}
+
+.msg .sender
+{
+	
+}
+
+.content
+{
+	position: relative;
+	left: 10px;
+}
+
+.content .text
+{
+	position: relative;
+	bottom: 10px;	
+}
+.content .sender
+{
+	font-weight: bold;
+	color: blue;
+	position: relative;
+	top: 5px;
+}
+#chatinput
+{
+	width: 448px;
+}

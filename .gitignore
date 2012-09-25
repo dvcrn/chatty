@@ -1,0 +1,5 @@
+*.subl*
+*.pyc
+run.sh
+*.sqlite3
+.DS_Store

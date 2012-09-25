@@ -1,0 +1,175 @@
+body
+{
+	background: #cccccc;
+	font-family: "Lucida Grande";
+	font-size: small;
+}
+
+#wrapper
+{
+	margin: 0 auto;
+	text-align: center;
+}
+
+#chatbox
+{
+	height: 600px;
+	width: 600px;
+	margin: 0 auto;
+	background: white;
+}
+
+#chatstatus
+{
+	background: url('../img/status-bg.png');
+	height: 20px;
+	padding: 0 5px;
+}
+
+#status-status
+{
+	
+}
+
+#status-status span
+{
+	color: blue;
+	font-weight: bold;
+}
+
+#chatcontent
+{
+	background: white;
+	height: 570px;
+	overflow-y: scroll;
+}
+
+#chatfooter
+{
+	margin: 10px 0;
+	background: #cccccc;
+	height: 60px;
+}
+
+#sendbutton
+{
+	border: 0;
+	background: white;
+	position: relative;
+	bottom: 14px;
+	padding: 18px;
+	width: 80px;
+}
+
+#chatinput 
+{
+	border: solid 1px;
+	border-color: #ccccff;
+	position: relative;
+	bottom: -6px;
+	width: 509px;
+	height: 45px;
+}
+
+.message-you
+{
+	padding: 5px;
+	text-align: left;
+}
+
+.message-you .message-avatar
+{
+	float: left;
+	margin: 0 10px;
+}
+
+.message-you .message-sender
+{
+	font-weight: bold;
+	color: blue;
+	margin: 0;
+	margin-bottom: -10px;
+	padding-left: 10px;
+}
+
+.message-you .message-content
+{
+	width: 510px;
+	margin-left: 70px;
+}
+
+.message-system
+{
+	text-align: left;
+	font-style: italic;
+	padding: 3px;
+	padding-left: 10px;
+}
+
+.message-partner
+{
+	padding: 5px;
+	text-align: right;
+}
+
+.message-partner .message-avatar
+{
+	float: right;
+	margin: 0 10px;
+}
+
+.message-partner .message-sender
+{
+	font-weight: bold;
+	color: red;
+	margin: 0;
+	margin-bottom: -10px;
+	padding-right: 10px;
+}
+
+.message-partner .message-content
+{
+	width: 510px;
+	margin-left: 10px;
+}
+
+#dropdown {
+	text-align: center;
+	width: 600px;
+}
+
+#dropdown-content {
+	height: 300px;
+	background: url('../img/partnerbox-bg.png');
+	display: none;
+}
+
+#dropdown-content h1 {
+	padding-top: 10px;
+	margin-top: 0;
+}
+
+#dropdown-content #partnerbox {
+	text-align: left;
+	border: solid 2px;
+	margin: 20px;
+	padding: 20px;
+	border-radius: 1.2em;
+}
+
+.partnerinfo
+{
+	font-weight: bold;
+}
+
+.partnerinfo span {
+	font-weight: normal;
+}
+#dropdown-bar {
+	background: red;
+	display: none;
+}
+#partnerbox #avatar {
+	float: right;
+	max-height: 150px;
+}

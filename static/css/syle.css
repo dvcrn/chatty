@@ -1,0 +1,10 @@
+#chatbox
+{
+	width: 500px;
+	height: 500px;
+	border: solid 1px;
+}
+#chatbox .msg
+{
+	margin: 10px;
+}

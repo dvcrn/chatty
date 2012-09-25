@@ -1,0 +1,242 @@
+body {
+	background: #e6e6e6;
+	font-family: Tahoma;
+}
+
+#wrapper {
+	width: 1040px;
+	margin: 0 auto;
+}
+
+#chatdesk {
+	height: 600px;
+	width: 720px;
+
+	border-radius: 0.3em;
+	text-align: center;
+}
+
+#chatbox {
+	margin: 0 auto;
+	height: 518px;
+	width: 700px;
+	border-radius: 0.3em;
+	overflow-y: auto;
+	background: white;
+}
+
+#chatinput {
+	width: 600px;
+	height: 60px;
+	padding: 0;
+	border: 0;
+	position: relative;
+	top: 10px;
+	border-radius: 0.3em;
+	resize: none;
+}
+
+#sendbutton {
+	float: right; 
+	background: white;
+	/*
+	background: #767676;
+	*/
+	border-radius: 0.3em;
+	width: 90px;
+	padding: 20px 0;
+	margin: 10px 10px 0 0;
+	text-decoration: none;
+	color: black;
+}
+
+#sendbutton:hover {
+
+}
+
+#sidebar {
+	float: right;
+	position: relative;
+	left: -10px;
+}
+
+#userdesk {
+	width: 250px;
+	height: 200px;
+	background: white;
+	border-radius: 0.3em;
+	padding: 20px;
+	text-align: center;
+}
+
+#userpic-container {
+	height: 150px;
+}
+
+#userpic {
+	max-height: 150px;
+	max-width: 250px;
+}
+
+.redbtn {
+	text-decoration: none;
+	color: white;
+	background: #e64444;
+	padding: 6px 12px;
+	border-radius: 0.3em;
+	font-size: 15px;
+}
+
+.redbtn:hover {
+	background: #ad232b;
+}
+
+#userdesk #infobtn {
+	position: relative;
+	top: 25px;
+}
+
+#addbtn {
+	text-decoration: none;
+	display: none;
+	background: #465f94;
+	padding: 10px 98px 10px 98px;
+	border-radius: 0 0 0.3em 0.3em;
+	color: white;
+}
+
+#addbtn:hover {
+	background: #4f4694;
+}
+
+#userinfo {
+	display: none;
+	text-align: left;
+}
+
+#userinfo ul {
+	list-style: none;
+	position: relative;
+	left: -25px;
+}
+
+#userinfo li {
+	padding: 5px 0;
+}
+
+#userinfo span {
+	color: #7c7c7c;
+}
+
+#actiondesk {
+	
+}
+
+#actiondesk ul {
+	list-style: none;
+	position: relative;
+	border-top: solid 1px #565656;
+	margin-left: 0;
+	padding-left: 0;
+	top: 20px;
+}
+
+#actiondesk li{
+	border-bottom: solid 1px;
+	padding: 8px 0;
+	position: relative;
+	border-color: #565656;
+}
+
+#actiondesk li a {
+	text-decoration: none;
+	color: #565656;
+}
+
+#actiondesk li a:hover {
+	color: black;
+}
+
+
+
+
+
+.message-you
+{
+	padding: 5px;
+	text-align: left;
+	clear: both;
+}
+
+.message-partner {
+	padding: 5px;
+	text-align: left;
+	clear: both;
+}
+
+.message-avatar
+{
+	float: left;
+	margin: 0 10px;
+}
+
+.message-you .message-sender
+{
+	font-weight: bold;
+	color: blue;
+	margin: 0;
+	margin-bottom: -10px;
+	padding-left: 10px;
+}
+
+.message-partner .message-sender
+{
+	font-weight: bold;
+	color: #e64444;
+	margin: 0;
+	margin-bottom: -10px;
+	padding-left: 10px;
+}
+
+.message-content
+{	
+	padding-right: 10px;
+	margin-left: 70px;
+}
+
+.message-system
+{
+	text-align: left;
+	font-style: italic;
+	padding: 3px;
+	padding-left: 10px;
+}
+
+
+#landingpage {
+	padding: 25px;
+	background: white;
+	border-radius: 0.3em;
+	width: 600px;
+	margin: 0 auto;
+	position: relative;
+	top: 20px;
+}
+
+#landingpage b {
+	color: #4c4c4c;
+}
+
+#landingpage #bottom {
+	text-align: center;
+	margin: 0 auto;
+}
+
+#landingpage #status {
+	font-size: small;
+	float: right;
+	position: relative;
+	top: -15px;
+	right: -10px;
+	color: gray;
+}

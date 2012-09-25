@@ -1,0 +1,8 @@
+<uwsgi>
+	<socket>127.0.0.1:3033</socket>
+    <pythonpath>/var/www/apps/chatty/</pythonpath>
+    <pythonpath>/var/www/apps/</pythonpath>
+    <app mountpoint="/">
+        <script>django_wsgi</script>
+    </app>
+</uwsgi>
