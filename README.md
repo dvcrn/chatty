@@ -1,5 +1,4 @@
 ## Random Chat Facebook Application  
-- Live System: http://apps.personalitycores.com/chatty/
 
 ### Requirements
 
